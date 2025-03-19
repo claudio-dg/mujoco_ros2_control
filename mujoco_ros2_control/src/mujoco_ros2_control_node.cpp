@@ -39,6 +39,10 @@ int main(int argc, const char **argv)
   RCLCPP_INFO_STREAM(node->get_logger(), "Initializing mujoco_ros2_control node...");
   auto model_path = node->get_parameter("mujoco_model_path").as_string();
 
+  // ######################## Load the plugin library #################################
+  mj_loadPluginLibrary("/home/claudiodelgaizo/ros/ur_gazebo_ws/install/mujoco_ros_utils/lib/libMujocoRosUtilsPlugin.so");
+  // ##################################################################################
+
   // load and compile model
   char error[1000] = "Could not load binary model";
   if (

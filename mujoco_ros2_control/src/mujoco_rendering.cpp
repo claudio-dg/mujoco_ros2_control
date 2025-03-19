@@ -57,7 +57,7 @@ void MujocoRendering::init(mjModel *mujoco_model, mjData *mujoco_data)
   }
 
   // create window, make OpenGL context current, request v-sync
-  window_ = glfwCreateWindow(1200, 900, "Demo", NULL, NULL);
+  window_ = glfwCreateWindow(1200, 900, "MUJOCO_ROS_CONTROL Demo", NULL, NULL);
   glfwMakeContextCurrent(window_);
   glfwSwapInterval(1);
 
