@@ -65,8 +65,8 @@ hardware_interface::return_type MujocoSystem::write(const rclcpp::Time& /* time 
          mj_data_->qpos[joint_state.mj_pos_adr] = joint_state.position_command;
 
       if (joint_state.is_velocity_control_enabled)
-         mj_data_->ctrl[joint_state.mj_vel_adr] = mj_data_->ctrl[joint_state.mj_vel_adr] + joint_state.velocity_command * period.seconds();
-
+         mj_data_->ctrl[joint_state.mj_vel_adr] = joint_state.velocity_command;
+         
       if (joint_state.is_effort_control_enabled)
       {
          double min_eff, max_eff;
@@ -228,11 +228,15 @@ void MujocoSystem::register_joints(const urdf::Model& urdf_model, const hardware
 
 void MujocoSystem::set_initial_pose()
 {
+   RCLCPP_INFO_STREAM(logger_, "\n\n\n\n ZZZZZZZZZZZZZZZZZ ");
+
    for (auto& joint_state : joint_states_)
    {
-      mj_data_->ctrl[joint_state.mj_vel_adr] = joint_state.position;
+      
+      // mj_data_->ctrl[joint_state.mj_vel_adr] = joint_state.position;
       mj_data_->qpos[joint_state.mj_pos_adr] = joint_state.position;
       mj_data_->qvel[joint_state.mj_vel_adr] = 0.0;
+      RCLCPP_INFO_STREAM(logger_, "Joint name: " << joint_state.name << " initial position: " << joint_state.position << " mj_data_ctrl : " << mj_data_->ctrl[joint_state.mj_vel_adr]);
    }
 }
 

@@ -44,7 +44,7 @@ void MujocoRos2ControlPlugin::RegisterPlugin()
 
    plugin.destroy = +[](mjData* d, int plugin_id) {
       auto plugin_instance = reinterpret_cast<MujocoRos2ControlPlugin*>(d->plugin_data[plugin_id]);
-      plugin_instance->destroy();
+      plugin_instance->destroy(); // DESTROY dopo l'init che secondo me impedisce il set initial pose nell init (CREDO)
 
       delete plugin_instance;
       d->plugin_data[plugin_id] = 0;
